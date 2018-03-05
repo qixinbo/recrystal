@@ -13,7 +13,9 @@ def index(request):
 			me = mesh.save()
 			ma = materials.save()
 			ex = executioner.save()
-			subprocess.Popen("mpirun -np 2 ./ex01-opt -i ex01.i", shell=True)
+			shell_command = "mpirun -np 2 ./ex01-opt -i ex01.i Executioner/solve_type=%s" \
+			%(ex.solve_type)
+			p = subprocess.Popen(shell_command, shell=True)
 
 	else:
 		mesh = MeshForm()

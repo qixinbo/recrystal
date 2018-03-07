@@ -10,6 +10,23 @@
 	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
 
 	<title>Grain Growth Simulation</title>
+
+	<script>  
+function httpGet(url)  
+{  
+        var xmlHttp = new XMLHttpRequest();  
+        xmlHttp.open("GET", url, false); // false: wait respond  
+        xmlHttp.send(null);  
+        return xmlHttp.responseText;  
+}  
+function f()  
+{  
+        var url = "http://127.0.0.1/cgi-bin/test.sh?"   
+           + document.getElementById('in').value;  
+        document.getElementById('out').innerHTML = httpGet(url);  
+}  
+</script>  
+
 </head>
 <body>
 
@@ -27,7 +44,7 @@
 					<a href="#">Messages</a>
 				</li>
 				<li class="dropdown pull-right">
-					 <a href="#" data-toggle="dropdown" class="dropdown-toggle">Dropdown<strong class="caret"></strong></a>
+					 <a href="#" data-toggle="dropdown" class="dropdown-toggle">Log In<strong class="caret"></strong></a>
 					<ul class="dropdown-menu">
 						<li>
 							<a href="#">Action</a>
@@ -77,8 +94,8 @@
 						</a>
 					</div>
 					<div id="panel-element-36746" class="panel-collapse collapse">
-							{# begin Mesh table#}
-							<table class="table table-hover table-condensed">
+						{# Mesh table begins#}
+						<table class="table table-hover table-condensed">
 							<tbody>
 								{% for field in mesh_form %}
 								<tr class="warning">
@@ -87,20 +104,21 @@
 								</tr>
 								{% endfor %}
 							</tbody>
-							</table>
+						</table>
+						{# Mesh table ends #}
 					</div>
 				</div>
 				<div class="panel panel-warning">
 					<div class="panel-heading">
 						<a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-653891" href="#panel-element-75462">
-							Materials
+							Outputs
 						</a>
 					</div>
 					<div id="panel-element-75462" class="panel-collapse collapse">
-						{# Materials table #}
+						{# outputs table begins#}
 						<table class="table table-hover table-condensed">
 							<tbody>
-								{% for field in materials_form %}
+								{% for field in outputs_form %}
 								<tr class="warning">
 								<td> {{ field.label }} </td>
 								<td> {{ field }} </td>
@@ -108,6 +126,7 @@
 								{% endfor %}
 							</tbody>
 						</table>
+						{# outputs table ends #}
 					</div>
 				</div>
 			</div>
@@ -119,34 +138,14 @@
 				<div class="panel panel-success">
 					<div class="panel-heading">
 						<a class="panel-title" data-toggle="collapse" data-parent="#panel-666666" href="#panel-element-23333">
-							Executioner
+							Initial Condition
 						</a>
 					</div>
 					<div id="panel-element-23333" class="panel-collapse collapse">
-						{# begin Executioner table#}
-						<table class="table table-hover table-condensed">
-						<tbody>
-							{% for field in executioner_form %}
-							<tr class="success">
-							<td> {{ field.label }} </td>
-							<td> {{ field }} </td>
-							</tr>
-							{% endfor %}
-						</tbody>
-						</table>
-					</div>
-				</div>
-				<div class="panel panel-success">
-					<div class="panel-heading">
-						<a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-666666" href="#panel-element-11111">
-							2-2
-						</a>
-					</div>
-					<div id="panel-element-11111" class="panel-collapse collapse">
-						{# Materials table #}
+						{# ic table begins #}
 						<table class="table table-hover table-condensed">
 							<tbody>
-								{% for field in materials_form %}
+								{% for field in ic_form %}
 								<tr class="success">
 								<td> {{ field.label }} </td>
 								<td> {{ field }} </td>
@@ -154,6 +153,28 @@
 								{% endfor %}
 							</tbody>
 						</table>
+						{# ic table ends #}
+					</div>
+				</div>
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-666666" href="#panel-element-11111">
+							Executioner
+						</a>
+					</div>
+					<div id="panel-element-11111" class="panel-collapse collapse">
+						{# executioner table begins#}
+						<table class="table table-hover table-condensed">
+							<tbody>
+								{% for field in executioner_form %}
+								<tr class="success">
+								<td> {{ field.label }} </td>
+								<td> {{ field }} </td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+						{# executioner table ends #}
 					</div>
 				</div>
 			</div>
@@ -165,31 +186,11 @@
 				<div class="panel panel-info">
 					<div class="panel-heading">
 						<a class="panel-title" data-toggle="collapse" data-parent="#panel-123456" href="#panel-element-34932">
-							3-1	
+							Materials
 						</a>
 					</div>
 					<div id="panel-element-34932" class="panel-collapse collapse">
-						{# begin Executioner table#}
-						<table class="table table-hover table-condensed">
-							<tbody>
-								{% for field in executioner_form %}
-								<tr class="info">
-								<td> {{ field.label }} </td>
-								<td> {{ field }} </td>
-								</tr>
-								{% endfor %}
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<div class="panel panel-info">
-					<div class="panel-heading">
-						<a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-123456" href="#panel-element-23123">
-							3-2
-						</a>
-					</div>
-					<div id="panel-element-23123" class="panel-collapse collapse">
-						{# Materials table #}
+						{# Materials table begins#}
 						<table class="table table-hover table-condensed">
 							<tbody>
 								{% for field in materials_form %}
@@ -200,6 +201,23 @@
 								{% endfor %}
 							</tbody>
 						</table>
+						{# Materials table ends #}
+					</div>
+				</div>
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-123456" href="#panel-element-23123">
+							More
+						</a>
+					</div>
+					<div id="panel-element-23123" class="panel-collapse collapse">
+						{# More table begins#}
+						<table class="table table-hover table-condensed">
+							<tbody>
+								under construction
+							</tbody>
+						</table>
+						{# More table ends #}
 					</div>
 				</div>
 			</div>
@@ -210,24 +228,27 @@
 
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-12">
-			<div class="row">
-				<div class="col-md-6">
-					<button type="submit" class="btn btn-block btn-large btn-default">
-						Compute
-					</button>
-				</div>
-				<div class="col-md-6">
-					<a href="http://127.0.0.1:8080" class="btn btn-block btn-default btn-large" target="view-results">
-						View results
-					</a>
-				</div>
-			</div>
+		<div class="col-md-4">
+		</div>
+		<div class="col-md-4">
+			<button type="submit" class="btn btn-block btn-lg btn-default">
+				Compute
+			</button>
+
+			<a href="http://127.0.0.1:8080" class="btn btn-block btn-lg btn-default" target="view-results">
+				View results
+			</a>
+		</div>
+		<div class="col-md-4">
 		</div>
 	</div>
 </div>
 
 </form>
+
+			<a href="http://127.0.0.1/cgi-bin/test.sh?ls" class="btn btn-block btn-lg btn-default">
+				View results
+			</a>
 
 </body>
 </html>

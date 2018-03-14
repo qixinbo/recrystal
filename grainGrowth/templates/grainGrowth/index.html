@@ -9,24 +9,82 @@
 	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
 
-	<title>Grain Growth Simulation</title>
-
 	<script>  
-function httpGet(url)  
-{  
-        var xmlHttp = new XMLHttpRequest();  
-        xmlHttp.open("GET", url, false); // false: wait respond  
-        xmlHttp.send(null);  
-        return xmlHttp.responseText;  
-}  
-function f()  
-{  
-        var url = "http://127.0.0.1/cgi-bin/test.sh?"   
-           + document.getElementById('in').value;  
-        document.getElementById('out').innerHTML = httpGet(url);  
-}  
-</script>  
+	function checkProcessInfo()
+	{
+		var xmlhttp;
+		if (window.XMLHttpRequest)
+		{
+			//  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+			xmlhttp=new XMLHttpRequest();
+		}
+		else
+		{
+			// IE6, IE5 浏览器执行代码
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange=function()
+		{
+			if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			{
+				document.getElementById("processInfo").innerHTML=xmlhttp.responseText;
+				// alert(xmlhttp.responseText)
+			}
+		}
+		xmlhttp.open("GET","/cgi-bin/checkProcessInfo.py",true);
+		xmlhttp.send();
+	}
+	function stopProcess()
+	{
+		var xmlhttp;
+		if (window.XMLHttpRequest)
+		{
+			//  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+			xmlhttp=new XMLHttpRequest();
+		}
+		else
+		{
+			// IE6, IE5 浏览器执行代码
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange=function()
+		{
+			if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			{
+				// document.getElementById("stopInfo").innerHTML=xmlhttp.responseText;
+				alert(xmlhttp.responseText)
+			}
+		}
+		xmlhttp.open("GET","/cgi-bin/stopProcess.py",true);
+		xmlhttp.send();
+	}
+	function downloadData()
+	{
+		var xmlhttp;
+		if (window.XMLHttpRequest)
+		{
+			//  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+			xmlhttp=new XMLHttpRequest();
+		}
+		else
+		{
+			// IE6, IE5 浏览器执行代码
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange=function()
+		{
+			if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			{
+				// document.getElementById("stopInfo").innerHTML=xmlhttp.responseText;
+				alert(xmlhttp.responseText)
+			}
+		}
+		xmlhttp.open("GET","/cgi-bin/downloadData.py",true);
+		xmlhttp.send();
+	}
+	</script>  
 
+	<title>Grain Growth Simulation</title>
 </head>
 <body>
 
@@ -234,10 +292,6 @@ function f()
 			<button type="submit" class="btn btn-block btn-lg btn-default">
 				Compute
 			</button>
-
-			<a href="http://127.0.0.1:8080" class="btn btn-block btn-lg btn-default" target="view-results">
-				View results
-			</a>
 		</div>
 		<div class="col-md-4">
 		</div>
@@ -246,9 +300,56 @@ function f()
 
 </form>
 
-			<a href="http://127.0.0.1/cgi-bin/test.sh?ls" class="btn btn-block btn-lg btn-default">
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-3">
+		</div>
+		<div class="col-md-3">
+			<br/>  
+			<button onclick='stopProcess()' class="btn btn-block btn-lg btn-default">
+				Stop 
+			</button>
+			<br/>  
+
+			 <a id="modal-222841" onclick='checkProcessInfo()' href="#modal-container-222841" role="button" class="btn btn-block btn-lg btn-default" data-toggle="modal">Check status</a>
+			
+			<div class="modal fade" id="modal-container-222841" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h2 class="modal-title" id="myModalLabel">
+								Simulation Status
+							</h2> 
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<pre id="processInfo"></pre>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" data-dismiss="modal">
+								Close
+							</button> 
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<br/>  
+			<a href="http://127.0.0.1:8080" class="btn btn-block btn-lg btn-default" target="view-results">
 				View results
 			</a>
+			<br/>  
+			<button onclick='downloadData()' class="btn btn-block btn-lg btn-default">
+				Download raw data
+			</button>
+		</div>
+		<div class="col-md-3">
+		</div>
+	</div>
+</div>
 
 </body>
 </html>

@@ -21,7 +21,7 @@ def index(request):
 			ex = executioner.save()
 			ou = outputs.save()
 			shell_command = (
-				"mpirun -np 1 ../../phase_field-opt -i grain_growth_2D_voronoi.i "
+				"../../phase_field-opt -i grain_growth_2D_voronoi.i "
 				"Mesh/dim=%d Mesh/nx=%d Mesh/ny=%d Mesh/nz=%d Mesh/xmin=%d Mesh/ymin=%d Mesh/zmin=%d Mesh/xmax=%d Mesh/ymax=%d Mesh/zmax=%d Mesh/uniform_refine=%d "
 				"GlobalParams/op_num=%d GlobalParams/var_name_base=%s UserObjects/voronoi/grain_num=%d Materials/CuGrGr/T=%f "
 				"Materials/CuGrGr/GBmob0=%f Materials/CuGrGr/GBenergy=%f Materials/CuGrGr/Q=%f Materials/CuGrGr/wGB=%f "
@@ -34,6 +34,7 @@ def index(request):
 					ou.exodus, ou.csv
 					)
 				)
+			print shell_command
 			p = subprocess.Popen(shell_command, shell=True, stdout=subprocess.PIPE, preexec_fn=os.setsid)
 
 	else:

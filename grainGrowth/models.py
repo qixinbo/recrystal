@@ -39,7 +39,7 @@ class Executioner(models.Model):
 class Outputs(models.Model):
 	isOutput = (('true', 'true'), ('false', 'false'))
 	exodus = models.CharField('exodus file is exported?', choices=isOutput, max_length=5, default='true')
-	csv = models.CharField('csv file is exported?', choices=isOutput, max_length=5)
+	csv = models.CharField('csv file is exported?', choices=isOutput, max_length=5, default='true')
 
 class MeshForm(ModelForm):
 	class Meta:

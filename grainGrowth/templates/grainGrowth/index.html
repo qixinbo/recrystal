@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../../static/grainGrowth/css/buttons.css">
+	<link href="http://cdn.bootcss.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
 	<!-- 新 Bootstrap 核心 CSS 文件 -->
 	<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
@@ -289,9 +292,11 @@
 		<div class="col-md-4">
 		</div>
 		<div class="col-md-4">
-			<button type="submit" class="btn btn-block btn-lg btn-default">
+			<span class="button-wrap btn-block">
+			<button type="submit" class="button button-pill button-primary button-raised btn-block">
 				Compute
 			</button>
+			</span>
 		</div>
 		<div class="col-md-4">
 		</div>
@@ -306,12 +311,10 @@
 		</div>
 		<div class="col-md-3">
 			<br/>  
-			<button onclick='stopProcess()' class="btn btn-block btn-lg btn-default">
-				Stop 
-			</button>
-			<br/>  
-
-			 <a id="modal-222841" onclick='checkProcessInfo()' href="#modal-container-222841" role="button" class="btn btn-block btn-lg btn-default" data-toggle="modal">Check status</a>
+			<a id="modal-222841" onclick='checkProcessInfo()' href="#modal-container-222841" role="button" class="btn btn-block btn-lg btn-default" data-toggle="modal">
+			Check status
+			<i class="fa fa-eye"></i>
+			</a>
 			
 			<div class="modal fade" id="modal-container-222841" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog" role="document">
@@ -335,15 +338,23 @@
 					</div>
 				</div>
 			</div>
+			<br/>  
+
+			<button onclick='stopProcess()' class="btn btn-block btn-lg btn-default">
+				Stop   
+				<i class="fa fa-ban"></i>
+			</button>
 		</div>
 		<div class="col-md-3">
 			<br/>  
 			<a href="http://127.0.0.1:8080" class="btn btn-block btn-lg btn-default" target="view-results">
 				View results
+				<i class="fa fa-picture-o"></i>
 			</a>
 			<br/>  
 			<button onclick='downloadData()' class="btn btn-block btn-lg btn-default">
-				Download raw data
+				Download raw data  
+				<i class="fa fa-download"></i>
 			</button>
 		</div>
 		<div class="col-md-3">

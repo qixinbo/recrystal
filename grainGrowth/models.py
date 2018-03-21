@@ -3,8 +3,8 @@ from django.forms import ModelForm
 # Create your models here.
 class Mesh(models.Model):
 	dim = models.IntegerField('model dimension', default=2)
-	nx = models.IntegerField('No. of elements in x', default=10)
-	ny = models.IntegerField('No. of elements in y', default=10)
+	nx = models.IntegerField('No. of elements in x', default=11)
+	ny = models.IntegerField('No. of elements in y', default=11)
 	nz = models.IntegerField('No. of elements in z', default=0)
 	xmin = models.FloatField('min x-coordinate', default=0)
 	ymin = models.FloatField('min y-coordinate', default=0)
@@ -12,11 +12,11 @@ class Mesh(models.Model):
 	xmax = models.FloatField('max x-coordinate', default=1000)
 	ymax = models.FloatField('max y-coordinate', default=1000)
 	zmax = models.FloatField('max z-coordinate', default=0)
-	uniform_refine = models.IntegerField('initial uniform refinement', default=2)
+	uniform_refine = models.IntegerField('initial uniform refinement', default=3)
 
 class IC(models.Model):
-	op_num = models.IntegerField('number of order paramaters', default=10)
-	grain_num = models.IntegerField('number of grains', default=10)
+	op_num = models.IntegerField('number of order paramaters', default=8)
+	grain_num = models.IntegerField('number of grains', default=100)
 	var_name_base = models.CharField('base name of grains', default='gr', max_length=10)
 	T = models.FloatField('temperature', default=450)
 
@@ -28,13 +28,11 @@ class Materials(models.Model):
 
 class Executioner(models.Model):
 	solve_type = models.CharField('solver type', default='PJFNK', max_length=20)
-	dt = models.FloatField('time step', default=5)
+	dt = models.FloatField('time step', default=25)
 	end_time = models.FloatField('end time', default=4000)
 	l_max_its = models.IntegerField('max number of linear iter', default=30)
 	l_tol = models.FloatField('relative tol for linear solver', default=1e-4)
 	nl_max_its = models.IntegerField('max no. of nonlinear iters', default=40)
-	nl_abs_tol = models.FloatField('absolute tol for nonlinear solver', default=1e-11)
-	nl_rel_tol = models.FloatField('relative tol for nonlinear solver', default=1e-8)
 
 class Outputs(models.Model):
 	isOutput = (('true', 'true'), ('false', 'false'))

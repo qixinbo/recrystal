@@ -21,20 +21,19 @@ def index(request):
 			ex = executioner.save()
 			ou = outputs.save()
 			shell_command = (
-				"../../phase_field-opt -i grain_growth_2D_voronoi.i "
+				"../../phase_field-opt -i grain_growth_2D_graintracker.i "
 				"Mesh/dim=%d Mesh/nx=%d Mesh/ny=%d Mesh/nz=%d Mesh/xmin=%d Mesh/ymin=%d Mesh/zmin=%d Mesh/xmax=%d Mesh/ymax=%d Mesh/zmax=%d Mesh/uniform_refine=%d "
 				"GlobalParams/op_num=%d GlobalParams/var_name_base=%s UserObjects/voronoi/grain_num=%d Materials/CuGrGr/T=%f "
 				"Materials/CuGrGr/GBmob0=%f Materials/CuGrGr/GBenergy=%f Materials/CuGrGr/Q=%f Materials/CuGrGr/wGB=%f "
-				"Executioner/solve_type=%s Executioner/TimeStepper/dt=%f Executioner/end_time=%f Executioner/l_max_its=%d Executioner/l_tol=%f Executioner/nl_max_its=%d Executioner/nl_abs_tol=%f Executioner/nl_rel_tol=%f " 
+				"Executioner/solve_type=%s Executioner/TimeStepper/dt=%f Executioner/end_time=%f Executioner/l_max_its=%d Executioner/l_tol=%f Executioner/nl_max_its=%d " 
 				"Outputs/exodus=%s Outputs/csv=%s"
 				%(me.dim, me.nx, me.ny, me.nz, me.xmin, me.ymin, me.zmin, me.xmax, me.ymax, me.zmax, me.uniform_refine,
 					ic.op_num, ic.var_name_base, ic.grain_num, ic.T,
 					ma.GBmob0, ma.GBenergy, ma.Q, ma.wGB, 
-					ex.solve_type, ex.dt, ex.end_time, ex.l_max_its, ex.l_tol, ex.nl_max_its, ex.nl_abs_tol, ex.nl_rel_tol, 
+					ex.solve_type, ex.dt, ex.end_time, ex.l_max_its, ex.l_tol, ex.nl_max_its, 
 					ou.exodus, ou.csv
 					)
 				)
-			print shell_command
 			p = subprocess.Popen(shell_command, shell=True, stdout=subprocess.PIPE, preexec_fn=os.setsid)
 
 	else:
